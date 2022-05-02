@@ -1,17 +1,14 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
+			people: [
+
+			],
+			planets: [
+
+			],
+			starships: [
+
 			]
 		},
 		actions: {
@@ -23,6 +20,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
+				fetch("https://www.swapi.tech/api/people")
+				.then((promiseResponse) => promiseResponse.json())
+				.then(data => setStore( {
+					people: [...getStore().people, data]
+				}))
+				fetch("https://www.swapi.tech/api/planets")
+				.then((promiseResponse) => promiseResponse.json())
+				.then(dataPlanets => setStore( {
+					planets: [...getStore().planets, dataPlanets]
+				}))
+				fetch("https://www.swapi.tech/api/starships")
+				.then((promiseResponse) => promiseResponse.json())
+				.then(dataStarships => setStore( {
+					starships: [...getStore().starships, dataStarships]
+				}))
 			},
 			changeColor: (index, color) => {
 				//get the store
@@ -38,6 +50,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			}
+
+
 		}
 	};
 };

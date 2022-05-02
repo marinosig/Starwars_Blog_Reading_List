@@ -7,37 +7,67 @@ import "../../styles/demo.css";
 
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
+	console.log(store.people);
+	const showPeople = store?.people[0]?.results.map((item, index) => {
+		return (
+			<div className="card" style={{ width: "17rem" }} key={index}>
+				<img src="..." className="card-img-top" alt="..." />
+				<div className="card-body">
+					<h4 className="card-title">{item.name}</h4>
+					<br></br>
+					<a href={item.url} className="btn btn-primary">Go to the Link</a>
+				</div>
+			</div>)
+	})
+
+	const showPlanets = store?.planets[0]?.results.map((item, index2) => {
+		return (
+			<div className="card" style={{ width: "17rem" }} key={index2}>
+				<img src="..." className="card-img-top" alt="..." />
+				<div className="card-body">
+					<h4 className="card-title">{item.name}</h4>
+					<br></br>
+					<a href={item.url} className="btn btn-primary">Go to the Link</a>
+				</div>
+			</div>)
+	})
+
+	const showStarships = store?.starships[0]?.results.map((item, index3) => {
+		return (
+			<div className="card" style={{ width: "17rem" }} key={index3}>
+				<img src="..." className="card-img-top" alt="..." />
+				<div className="card-body">
+					<h4 className="card-title">{item.name}</h4>
+					<br></br>
+					<a href={item.url} className="btn btn-primary">Go to the Link</a>
+				</div>
+			</div>)
+	})
 
 	return (
 		<div className="container">
-			<ul className="list-group">
-				{store.demo.map((item, index) => {
-					return (
-						<li
-							key={index}
-							className="list-group-item d-flex justify-content-between"
-							style={{ background: item.background }}>
-							<Link to={"/single/" + index}>
-								<span>Link to: {item.title}</span>
-							</Link>
-							{// Conditional render example
-							// Check to see if the background is orange, if so, display the message
-							item.background === "orange" ? (
-								<p style={{ color: item.initial }}>
-									Check store/flux.js scroll to the actions to see the code
-								</p>
-							) : null}
-							<button className="btn btn-success" onClick={() => actions.changeColor(index, "orange")}>
-								Change Color
-							</button>
-						</li>
-					);
-				})}
-			</ul>
+			<div><h3 style={{ color: "#b51616" }}> Characters </h3>
+			<div className="row scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2 overflow-scroll">
+			{showPeople}
+			</div>
+			</div>
+			<div><h3 style={{ color: "#b51616" }}> Planets </h3>
+			<div className="row scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2 overflow-scroll">
+			{showPlanets}
+			</div>
+			</div>
+			<div><h3 style={{ color: "#b51616" }}> Starships </h3>
+			<div className="row scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2 overflow-scroll">
+			{showStarships}
+			</div>
+			</div>
 			<br />
+			<div className="row">
 			<Link to="/">
 				<button className="btn btn-primary">Back home</button>
 			</Link>
+			</div>
 		</div>
+
 	);
 };
